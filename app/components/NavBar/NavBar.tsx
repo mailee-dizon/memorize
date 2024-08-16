@@ -11,7 +11,6 @@ const NavBar = () => {
             </Link>
         </div>
         <div className='navbar-end'>
-            {/* Log in button goes here*/}
             <LogInButton />
             <div className='dropdown dropdown-hover dropdown-bottom dropdown-end'>
                 <div tabIndex={0} role='button'>

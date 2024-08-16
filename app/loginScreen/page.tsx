@@ -32,7 +32,7 @@ const LogIn = () => {
         </div>
         {/* Add Google Sign In Here */}
           <label className='flex flex-col items-center'>
-              <p className='text-xs'>Don't have an account? <Link href='../signupScreen' className='text-blue-400 link-hover'>Create one here!</Link></p> {/*Change Link To Sign Up Screen*/} 
+              <p className='text-xs'>Don't have an account? <Link href='../signupScreen' className='text-blue-400 link-hover'>Create one here!</Link></p>
           </label>
           <div className='flex flex-col items-center mt-5'>
                 <button className='border-2 border-purple-500 rounded-md px-2 py-1 bg-purple-500 text-white w-44 h-12 text-xl'>Log In!</button>
