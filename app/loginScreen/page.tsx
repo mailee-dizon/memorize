@@ -1,6 +1,11 @@
 import React from 'react'
 import NavBar from '../components/NavBar/NavBar'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import {
+  CredentialsSignInButton,
+  GoogleSignInButton,
+} from "../components/authButtons";
 
 const LogIn = () => {
   return (
@@ -31,6 +36,8 @@ const LogIn = () => {
           </div>
         </div>
         {/* Add Google Sign In Here */}
+        <h1 className="text-center text-black">------------ or ------------</h1>
+        <GoogleSignInButton />
           <label className='flex flex-col items-center'>
               <p className='text-xs'>Dont have an account? <Link href='../signupScreen' className='text-blue-400 link-hover'>Create one here!</Link></p>
           </label>
