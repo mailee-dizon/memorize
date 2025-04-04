@@ -2,20 +2,20 @@
 import React from 'react'
 import { useState } from 'react';
 import { auth } from "@/app/firebase/config";
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function SignupPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
 
-    const handleLogin = async () => {
+    const handleSignup = async () => {
         try {
-            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
             var user = userCredentials.user;
-            console.log("Logged in as: ", user.email)
-            router.push("../UserHome");
+            router.push("../UserHome")
+            console.log("Signed up as: ", user.email)
         } catch (error) {
             if (error instanceof Error) {
                 var errorMessage = error.message;
@@ -24,17 +24,15 @@ export default function LoginPage() {
         }
     }
 
-
-
     return (
         <div>
-            <h1>Log in Here</h1>
+            <h1>Sign Up Here</h1>
             <label>Email</label> <br/>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder = "Email"/> <br/>
             <label>Password</label> <br/>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder = "Password"/> <br/>
-            <button onClick={handleLogin}>Log in</button> <br/>
-            <button onClick={() => {router.push("../SignupPage")}}>Create Account Here</button>
+            <button onClick={handleSignup}>Sign up</button> <br/>
+            <button onClick={() => {router.push("../LoginPage")}}>Have an Account? Log in here</button>
         </div>
     );
 }
