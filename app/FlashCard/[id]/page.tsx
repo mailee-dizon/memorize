@@ -1,0 +1,99 @@
+'use client'
+import React from 'react'
+import { useParams } from 'next/navigation'
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '@/app/firebase/config';
+import { useRouter } from 'next/navigation';
+
+export default function Deck() {
+    const { id } = useParams();
+    const [user, setUser] = useState<any>(null);
+    const [cards, setCards] = useState<any[]>([]);
+    const [cardsIndex, setCardsIndex] = useState(0);
+    const router = useRouter();
+    
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);
+                fetchDecks();
+            } else {
+                setUser(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const fetchDecks = async () => {
+        const user = auth.currentUser;
+        if (!user || !id) {
+            return;
+        }
+        try {
+            const userDocRef = doc(db, "users", user?.uid, "flashcards", id as string);
+            const snapshot = await getDoc(userDocRef);
+            console.log(id );
+            console.log(userDocRef.path);
+            
+            if (snapshot.exists()) {
+                const deckData = snapshot.data();
+                setCards(deckData.cards || []);
+                console.log("Catching cards for ", user.email)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const previousCard = () => {
+        if (cardsIndex === 0) {
+            setCardsIndex(cards.length - 1);
+        } else {
+            setCardsIndex(cardsIndex - 1);
+        }
+    }
+
+    const nextCard = () => {
+        if (cardsIndex === cards.length - 1) {
+            setCardsIndex(0);
+        } else {
+            setCardsIndex(cardsIndex + 1);
+        }
+    }
+
+    return (
+        <div>
+            <div>
+                <div>
+                    {cards.length > 0 ? (
+                        <div className="flip-card">
+                            <div className="flip-card-inner">
+                                <div className="flip-card-front">
+                                    <h1>Question</h1>
+                                    <p>{cards[cardsIndex].front}</p>
+                                </div>
+                                <div className="flip-card-back">
+                                    <h1>Answer</h1>
+                                    <p>{cards[cardsIndex].back}</p>
+                                    <h2>Notes</h2>
+                                    <p>{cards[cardsIndex].back}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ): (
+                        <p>No Cards</p>
+                    )}
+                
+                    <div className="cb1">
+                        <button type="button" onClick={previousCard} className="ib1">Previous Card</button>
+                        <button type="button" onClick={nextCard} className="ib2">Next Card</button>
+                    </div>
+                </div>  
+                    <button onClick={() => router.push("../../UserHome")}>Back Home</button>
+                    <button onClick={() => router.push("../..")}>Logout</button>
+            </div>
+        </div>
+    )
+}

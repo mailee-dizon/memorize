@@ -4,31 +4,45 @@ import { useState } from 'react';
 import { app, auth, db } from "@/app/firebase/config";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { doc, collection, getDocs } from 'firebase/firestore';
 
 export default function UserHome() {
-    const [decks, setDecks] = useState([]);
-    const user = auth.currentUser;
+    const [decks, setDecks] = useState<{ id: string; title: any }[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<any>(null);
+    const router = useRouter();
 
     useEffect(() => {
-    const fetchDecks = async () => {
+        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);
+                fetchDecks(currentUser.uid);
+            } else {
+                setUser(null);
+                setDecks([]);
+            }
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+    
+    const fetchDecks = async (userId: string) => {
       try {
-        const ref = db.collection("users").doc(user.uid).collection("flashcards");
-        const snapshot = await ref.get();
+        const userDocRef =  doc(db, "users", userId);
+        const flashcardsRef = collection(userDocRef, "flashcards");
+        const snapshot = await getDocs(flashcardsRef);
         const list = snapshot.docs.map(doc => ({
           id: doc.id,
           title: doc.data().title
         }));
+
         setDecks(list);
       } catch (error) {
         console.log(error)
       }
     }
-    fetchDecks()
-  }, [user]);
-
-
-
-    
 
 
     return (
@@ -37,14 +51,18 @@ export default function UserHome() {
         {decks.length > 0 ? (
           decks.map((deck) => {
             return(
-              <button key={deck.id} onClick={() => onSelect(deck.id) }>{deck.title}</button>
+                <div key={deck.id}>
+                    <button onClick={() => router.push(`../FlashCard/${deck.id}`)}>{deck.title}</button> <br/>
+                </div>
             );
           })
         ): (
-          <p>No Decks</p>
+            <div>
+                <p>No Decks</p>
+            </div>
         )}
-        <button onClick={onNewSet}>New Set</button>
-        <button onClick={onLogOut}>Log Out</button>
+        <button onClick={() => router.push("../CreateCard")}>New Set</button> <br/>
+        <button>Log Out</button>
       </div>
     )
 }
