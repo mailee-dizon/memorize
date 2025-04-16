@@ -1,10 +1,9 @@
 "use client";
 import React from 'react'
 import { useState } from 'react';
-import { app, auth, db } from "@/app/firebase/config";
+import { auth, db } from "@/app/firebase/config";
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged } from 'firebase/auth';
 import { doc, collection, getDocs } from 'firebase/firestore';
 
 export default function UserHome() {
@@ -14,6 +13,22 @@ export default function UserHome() {
     const router = useRouter();
 
     useEffect(() => {
+        const fetchDecks = async (userId: string) => {
+            try {
+              const userDocRef =  doc(db, "users", userId);
+              const flashcardsRef = collection(userDocRef, "flashcards");
+              const snapshot = await getDocs(flashcardsRef);
+              const list = snapshot.docs.map(doc => ({
+                id: doc.id,
+                title: doc.data().title
+              }));
+      
+              setDecks(list);
+            } catch (error) {
+              console.log(error)
+            }
+          }
+
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {
             if (currentUser) {
                 setUser(currentUser);
@@ -28,21 +43,21 @@ export default function UserHome() {
         return () => unsubscribe();
     }, []);
     
-    const fetchDecks = async (userId: string) => {
-      try {
-        const userDocRef =  doc(db, "users", userId);
-        const flashcardsRef = collection(userDocRef, "flashcards");
-        const snapshot = await getDocs(flashcardsRef);
-        const list = snapshot.docs.map(doc => ({
-          id: doc.id,
-          title: doc.data().title
-        }));
+    // const fetchDecks = async (userId: string) => {
+    //   try {
+    //     const userDocRef =  doc(db, "users", userId);
+    //     const flashcardsRef = collection(userDocRef, "flashcards");
+    //     const snapshot = await getDocs(flashcardsRef);
+    //     const list = snapshot.docs.map(doc => ({
+    //       id: doc.id,
+    //       title: doc.data().title
+    //     }));
 
-        setDecks(list);
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    //     setDecks(list);
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
 
 
     return (

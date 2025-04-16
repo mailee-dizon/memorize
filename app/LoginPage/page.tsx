@@ -13,12 +13,12 @@ export default function LoginPage() {
     const handleLogin = async () => {
         try {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-            var user = userCredentials.user;
+            const user = userCredentials.user;
             console.log("Logged in as: ", user.email)
             router.push("../UserHome");
         } catch (error) {
             if (error instanceof Error) {
-                var errorMessage = error.message;
+                const errorMessage = error.message;
                 console.log(errorMessage);
             }
         }

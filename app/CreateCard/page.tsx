@@ -3,7 +3,22 @@ import React from 'react'
 export default function CreateCard() {
   return (
     <div>
-      <h1>Create Your Cards Here</h1>
+      <div className="flip-card">
+        <div className="flip-card-create">
+          <div className="flip-card-front">
+            <h1>front</h1>
+            <input placeholder="front"/>
+          </div>
+        </div>
+      </div>
+      <div className="flip-card">
+        <div className="flip-card-create">
+          <div className="flip-card-front">
+            <h1>back</h1>
+            <input placeholder="back"/>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

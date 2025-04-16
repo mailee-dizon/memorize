@@ -13,12 +13,12 @@ export default function SignupPage() {
     const handleSignup = async () => {
         try {
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-            var user = userCredentials.user;
+            const user = userCredentials.user;
             router.push("../UserHome")
             console.log("Signed up as: ", user.email)
         } catch (error) {
             if (error instanceof Error) {
-                var errorMessage = error.message;
+                const errorMessage = error.message;
                 console.log(errorMessage);
             }
         }
