@@ -8,9 +8,8 @@ import { doc, collection, getDocs } from 'firebase/firestore';
 
 export default function UserHome() {
     const [decks, setDecks] = useState<{ id: string; title: any }[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<any>(null);
     const router = useRouter();
+    let user = auth.currentUser;
 
     useEffect(() => {
         const fetchDecks = async (userId: string) => {
@@ -31,13 +30,12 @@ export default function UserHome() {
 
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {
             if (currentUser) {
-                setUser(currentUser);
+                user = currentUser;
                 fetchDecks(currentUser.uid);
             } else {
-                setUser(null);
+                user = null;
                 setDecks([]);
             }
-            setLoading(false);
         });
 
         return () => unsubscribe();
@@ -59,6 +57,11 @@ export default function UserHome() {
     //   }
     // }
 
+    const onLogOut = () => {
+        user = null;
+        router.push("../")
+    }
+
 
     return (
       <div>
@@ -77,7 +80,7 @@ export default function UserHome() {
             </div>
         )}
         <button onClick={() => router.push("../CreateCard")}>New Set</button> <br/>
-        <button>Log Out</button>
+        <button onClick={onLogOut}>Log Out</button>
       </div>
     )
 }

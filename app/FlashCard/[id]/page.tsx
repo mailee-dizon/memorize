@@ -8,44 +8,48 @@ import { useRouter } from 'next/navigation';
 
 export default function Deck() {
     const { id } = useParams();
-    const [user, setUser] = useState<any>(null);
     const [cards, setCards] = useState<any[]>([]);
     const [cardsIndex, setCardsIndex] = useState(0);
     const router = useRouter();
+    let user = auth.currentUser;
     
     useEffect(() => {
+        const fetchDecks = async () => {
+            
+            
+            if (!user || !id) {
+                return;
+            }
+            try {
+                const userDocRef = doc(db, "users", user?.uid, "flashcards", id as string);
+                const snapshot = await getDoc(userDocRef);
+                console.log(id );
+                console.log(userDocRef.path);
+                
+                if (snapshot.exists()) {
+                    const deckData = snapshot.data();
+                    setCards(deckData.cards || []);
+                    console.log("Catching cards for ", user.email)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {
             if (currentUser) {
-                setUser(currentUser);
+                user = currentUser;
+                console.log(user.email);
                 fetchDecks();
             } else {
-                setUser(null);
+                user = null;
             }
         });
 
         return () => unsubscribe();
     }, []);
 
-    const fetchDecks = async () => {
-        const user = auth.currentUser;
-        if (!user || !id) {
-            return;
-        }
-        try {
-            const userDocRef = doc(db, "users", user?.uid, "flashcards", id as string);
-            const snapshot = await getDoc(userDocRef);
-            console.log(id );
-            console.log(userDocRef.path);
-            
-            if (snapshot.exists()) {
-                const deckData = snapshot.data();
-                setCards(deckData.cards || []);
-                console.log("Catching cards for ", user.email)
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+
 
     const previousCard = () => {
         if (cardsIndex === 0) {
