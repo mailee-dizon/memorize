@@ -7,9 +7,8 @@ import { useRouter } from 'next/navigation';
 import { doc, collection, getDocs } from 'firebase/firestore';
 
 export default function UserHome() {
-    const [decks, setDecks] = useState<{ id: string; title: any }[]>([]);
+    const [decks, setDecks] = useState<{ id: string; title: string }[]>([]);
     const router = useRouter();
-    let user = auth.currentUser;
 
     useEffect(() => {
         const fetchDecks = async (userId: string) => {
@@ -30,10 +29,8 @@ export default function UserHome() {
 
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {
             if (currentUser) {
-                user = currentUser;
                 fetchDecks(currentUser.uid);
             } else {
-                user = null;
                 setDecks([]);
             }
         });
@@ -43,7 +40,7 @@ export default function UserHome() {
     
 
     const onLogOut = () => {
-        user = null;
+        auth.signOut()
         router.push("../")
     }
 
