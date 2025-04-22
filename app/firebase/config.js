@@ -11,7 +11,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-console.log("🔥 Firebase API KEY:", process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
+console.log("🔥 Firebase API KEY:", firebaseConfig.apiKey);
 
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
