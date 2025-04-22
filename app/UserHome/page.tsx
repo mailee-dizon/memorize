@@ -41,21 +41,6 @@ export default function UserHome() {
         return () => unsubscribe();
     }, []);
     
-    // const fetchDecks = async (userId: string) => {
-    //   try {
-    //     const userDocRef =  doc(db, "users", userId);
-    //     const flashcardsRef = collection(userDocRef, "flashcards");
-    //     const snapshot = await getDocs(flashcardsRef);
-    //     const list = snapshot.docs.map(doc => ({
-    //       id: doc.id,
-    //       title: doc.data().title
-    //     }));
-
-    //     setDecks(list);
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
 
     const onLogOut = () => {
         user = null;
