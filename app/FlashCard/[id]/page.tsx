@@ -1,27 +1,32 @@
 'use client'
 import React from 'react'
 import { useParams } from 'next/navigation'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase/config';
 import { useRouter } from 'next/navigation';
 
+interface FlashCard {
+    front: string;
+    back: string;
+    notes?: string;
+}
+
 export default function Deck() {
     const { id } = useParams();
-    const [cards, setCards] = useState<any[]>([]);
+    const [cards, setCards] = useState<FlashCard[]>([]);
     const [cardsIndex, setCardsIndex] = useState(0);
     const router = useRouter();
-    let user = auth.currentUser;
     
     useEffect(() => {
-        const fetchDecks = async () => {
+        const fetchDecks = async (userId: string, deckId: string) => {
             
             
-            if (!user || !id) {
-                return;
-            }
+            // if (!user || !id) {
+            //     return;
+            // }
             try {
-                const userDocRef = doc(db, "users", user?.uid, "flashcards", id as string);
+                const userDocRef = doc(db, "users", userId, "flashcards", deckId);
                 const snapshot = await getDoc(userDocRef);
                 console.log(id );
                 console.log(userDocRef.path);
@@ -29,7 +34,7 @@ export default function Deck() {
                 if (snapshot.exists()) {
                     const deckData = snapshot.data();
                     setCards(deckData.cards || []);
-                    console.log("Catching cards for ", user.email)
+                    console.log("Catching cards for ", userId)
                 }
             } catch (error) {
                 console.log(error);
@@ -38,16 +43,14 @@ export default function Deck() {
 
         const unsubscribe = auth.onAuthStateChanged((currentUser) => {
             if (currentUser) {
-                user = currentUser;
-                console.log(user.email);
-                fetchDecks();
+                fetchDecks(currentUser.uid, id as string)
             } else {
-                user = null;
+                auth.signOut();
             }
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [id]);
 
 
 
