@@ -15,6 +15,9 @@ export default function LoginPage() {
     const handleLogin = async () => {
         try {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            if (!userCredentials) {
+                console.log("help");
+            }
             const user = userCredentials.user;
             console.log("Logged in as: ", user.email)
             router.push("../UserHome");
