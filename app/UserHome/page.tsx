@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { doc, collection, getDocs } from 'firebase/firestore';
 
+export const dynamic = "force-dynamic";
+
 export default function UserHome() {
     const [decks, setDecks] = useState<{ id: string; title: string }[]>([]);
     const router = useRouter();

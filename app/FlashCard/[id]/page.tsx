@@ -6,6 +6,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase/config';
 import { useRouter } from 'next/navigation';
 
+export const dynamic = "force-dynamic";
+
 interface FlashCard {
     front: string;
     back: string;
