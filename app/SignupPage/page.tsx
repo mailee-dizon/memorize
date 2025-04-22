@@ -15,6 +15,9 @@ export default function SignupPage() {
     const handleSignup = async () => {
         try {
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+            if (!userCredentials) {
+                console.log("help");
+            }
             const user = userCredentials.user;
             router.push("../UserHome")
             console.log("Signed up as: ", user.email)
