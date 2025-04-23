@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 console.log("🔥 Firebase API KEY:", firebaseConfig.apiKey);
-console.log("Test: ", process.env.TEST);
+console.log("Test: ", process.env);
 
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()

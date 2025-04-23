@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "react-env --path ../../../.env -- next dev",
+    "start:prod": "react-env --path ../../../.env -- next start",
+    "test": "jest",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,7 +15,13 @@
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-firebase-hooks": "^5.1.1"
+    "react-firebase-hooks": "^5.1.1",
+
+    "@beam-australia/react-env": "^3.1.1",
+    "next-compose-plugins": "^2.2.1",
+    "next-with-less": "^1.0.0",
+    "react-env": "^0.0.0",
+    "react-router-dom": "^5.2.0"
   },
   "engines": {
     "node": "20.x"
