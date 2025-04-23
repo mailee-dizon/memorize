@@ -2,7 +2,7 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-console.log("Test 2: ", process.env.TEST_1);
+console.log("Test 2: ", process.env.TEST);
 
 //const TEST = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
 
