@@ -2,8 +2,6 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-console.log("Test 2: ", process.env.TEST);
-
 //const TEST = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
 
 const firebaseConfig = {
@@ -15,7 +13,8 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// console.log("🔥 Firebase API KEY:", firebaseConfig.apiKey);
+console.log("🔥 Firebase API KEY:", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+console.log("projectID: ",process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
 // console.log("Test: ", TEST);
 // console.log("MON: ", process.env.MON);
 
