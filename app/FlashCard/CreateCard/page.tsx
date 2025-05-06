@@ -37,10 +37,6 @@ export default function CreateCard() {
   const [isFlipped, setIsFlipped] = useState(true);
   const [title, setTitle] = useState("")
 
-  const saveSet = () => {
-
-  }
-
   const updateFront = (input: string) => {
     const updatedCards = [...cards]
     const currentCard = cards[cardIndex]
