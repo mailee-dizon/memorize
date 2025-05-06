@@ -20,7 +20,7 @@ export default function LoginPage() {
             }
             const user = userCredentials.user;
             console.log("Logged in as: ", user.email)
-            router.push("../UserHome");
+            router.push("HomePage");
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = error.message;
@@ -39,7 +39,7 @@ export default function LoginPage() {
             <label>Password</label> <br/>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder = "Password"/> <br/>
             <button onClick={handleLogin}>Log in</button> <br/>
-            <button onClick={() => {router.push("../SignupPage")}}>Create Account Here</button>
+            <button onClick={() => {router.push("SignupPage")}}>Create Account Here</button>
         </div>
     );
 }

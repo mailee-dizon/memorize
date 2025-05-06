@@ -22,15 +22,10 @@ export default function Deck() {
     
     useEffect(() => {
         const fetchDecks = async (userId: string, deckId: string) => {
-            
-            
-            // if (!user || !id) {
-            //     return;
-            // }
             try {
                 const userDocRef = doc(db, "users", userId, "flashcards", deckId);
                 const snapshot = await getDoc(userDocRef);
-                console.log(id );
+                console.log(id);
                 console.log(userDocRef.path);
                 
                 if (snapshot.exists()) {
@@ -100,7 +95,7 @@ export default function Deck() {
                         <button type="button" onClick={nextCard} className="ib2">Next Card</button>
                     </div>
                 </div>  
-                    <button onClick={() => router.push("../../UserHome")}>Back Home</button>
+                    <button onClick={() => router.push("../Pages/HomePage")}>Back Home</button>
                     <button onClick={() => router.push("../..")}>Logout</button>
             </div>
         </div>

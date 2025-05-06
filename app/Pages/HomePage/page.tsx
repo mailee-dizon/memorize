@@ -63,7 +63,7 @@ export default function UserHome() {
                 <p>No Decks</p>
             </div>
         )}
-        <button onClick={() => router.push("../CreateCard")}>New Set</button> <br/>
+        <button onClick={() => router.push("../FlashCard/CreateCard")}>New Set</button> <br/>
         <button onClick={onLogOut}>Log Out</button>
       </div>
     )

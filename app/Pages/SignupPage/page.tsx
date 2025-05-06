@@ -37,7 +37,7 @@ export default function SignupPage() {
             <label>Password</label> <br/>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder = "Password"/> <br/>
             <button onClick={handleSignup}>Sign up</button> <br/>
-            <button onClick={() => {router.push("../LoginPage")}}>Have an Account? Log in here</button>
+            <button onClick={() => {router.push("LoginPage")}}>Have an Account? Log in here</button>
         </div>
     );
 }

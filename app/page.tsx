@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <div>
       <h1>Welcome to Memorize!</h1>
-      <button onClick={() => router.push("LoginPage")}>Log In</button>
-      <button onClick={() => router.push("SignupPage")}>Sign Up</button>
+      <button onClick={() => router.push("Pages/LoginPage")}>Log In</button>
+      <button onClick={() => router.push("Pages/SignupPage")}>Sign Up</button>
     </div>
   );
 }
