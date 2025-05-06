@@ -33,7 +33,6 @@ class FlashCard {
 
 export default function CreateCard() {
   const [cards, setCards] = useState<FlashCard[]>([new FlashCard("", "")]);
-  const [cardFront, setCardFront] = useState("")
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(true);
   const [title, setTitle] = useState("")
