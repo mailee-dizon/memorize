@@ -1,7 +1,9 @@
 'use client'
-
 import React from 'react'
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { auth, db } from '@/app/firebase/config';
+import { doc, collection, addDoc } from 'firebase/firestore';
 
 class FlashCard {
   private front: string;
@@ -36,6 +38,7 @@ export default function CreateCard() {
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(true);
   const [title, setTitle] = useState("")
+  const router = useRouter()
 
   const updateFront = (input: string) => {
     const updatedCards = [...cards]
@@ -81,6 +84,29 @@ export default function CreateCard() {
     }
   }
 
+  const saveCards = async () => {
+    if (title === "") {
+      console.log("must have title")
+    }
+
+    try {
+      const formattedCards = cards.map(card => ({
+        front: card.getFront(),
+        back: card.getBack(),
+      }))
+
+      const user = auth.currentUser
+
+      if (user !== null) {
+        addDoc(collection(doc(db, "users", user.uid), "flashcards"), {title, cards: formattedCards})
+        console.log("saved")
+        router.push("../Pages/HomePage")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div>
       <h1>Create Cards</h1>
@@ -112,7 +138,7 @@ export default function CreateCard() {
       <button onClick={createNewCard}>New Card</button>
       <button onClick={previousCard}>Previous Card</button>
       <button onClick={nextCard}>Next Card</button>
-      <button>Save Cards</button>
+      <button onClick={saveCards}>Save Cards</button>
     </div>
   )
 }
