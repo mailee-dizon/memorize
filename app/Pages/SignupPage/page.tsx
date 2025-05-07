@@ -19,7 +19,7 @@ export default function SignupPage() {
                 console.log("help");
             }
             const user = userCredentials.user;
-            router.push("../UserHome")
+            router.push("HomePage")
             console.log("Signed up as: ", user.email)
         } catch (error) {
             if (error instanceof Error) {
