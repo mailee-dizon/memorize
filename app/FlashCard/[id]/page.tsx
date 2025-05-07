@@ -11,7 +11,6 @@ export const dynamic = "force-dynamic";
 interface FlashCard {
     front: string;
     back: string;
-    notes?: string;
 }
 
 export default function Deck() {
@@ -80,8 +79,6 @@ export default function Deck() {
                                 </div>
                                 <div className="flip-card-back">
                                     <h1>Answer</h1>
-                                    <p>{cards[cardsIndex].back}</p>
-                                    <h2>Notes</h2>
                                     <p>{cards[cardsIndex].back}</p>
                                 </div>
                             </div>
