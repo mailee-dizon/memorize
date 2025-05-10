@@ -4,14 +4,19 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth, db } from '@/app/firebase/config';
 import { doc, collection, addDoc } from 'firebase/firestore';
+import ImageUploader from '../components/imageUploader';
 
 class FlashCard {
   private front: string;
   private back: string;
+  private imageFront: string;
+  private imageBack: string;
 
-  public constructor(front: string, back: string) {
+  public constructor(front: string, back: string, imageFront: string, imageBack: string) {
     this.front = front;
     this.back = back;
+    this.imageFront = imageFront;
+    this.imageBack = imageBack;
   }
 
   public getFront() {
@@ -22,6 +27,14 @@ class FlashCard {
     return this.back;
   }
 
+  public getImageFront() {
+    return this.imageFront;
+  }
+
+  public getImageBack() {
+    return this.imageBack;
+  }
+
   public setFront(front: string) {
     this.front = front;
   }
@@ -29,12 +42,20 @@ class FlashCard {
   public setBack(back: string) {
     this.back = back;
   }
+
+  public setImageFront(imageFront: string) {
+    this.imageFront = imageFront;
+  }
+
+  public setImageBack(imageBack: string) {
+    this.imageBack = imageBack;
+  }
 }
 
 
 
 export default function CreateCard() {
-  const [cards, setCards] = useState<FlashCard[]>([new FlashCard("", "")]);
+  const [cards, setCards] = useState<FlashCard[]>([new FlashCard("", "", "", "")]);
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(true);
   const [title, setTitle] = useState("")
@@ -43,7 +64,7 @@ export default function CreateCard() {
   const updateFront = (input: string) => {
     const updatedCards = [...cards]
     const currentCard = cards[cardIndex]
-    const updatedCard = new FlashCard(input, currentCard.getBack())
+    const updatedCard = new FlashCard(input, currentCard.getBack(), currentCard.getImageFront(), currentCard.getImageBack())
     updatedCards[cardIndex] = updatedCard
     setCards(updatedCards);
   }
@@ -51,7 +72,7 @@ export default function CreateCard() {
   const updateBack = (input: string) => {
     const updatedCards = [...cards]
     const currentCard = cards[cardIndex]
-    const updatedCard = new FlashCard(currentCard.getFront(), input)
+    const updatedCard = new FlashCard(currentCard.getFront(), input, currentCard.getImageFront(), currentCard.getImageBack())
     updatedCards[cardIndex] = updatedCard
     setCards(updatedCards)
   }
@@ -61,7 +82,7 @@ export default function CreateCard() {
   }
 
   const createNewCard = () => {
-    const newCard = new FlashCard("", "");
+    const newCard = new FlashCard("", "", "", "");
     setCards([...cards, newCard])
     setCardIndex(cardIndex + 1);
   }
@@ -93,7 +114,10 @@ export default function CreateCard() {
       const formattedCards = cards.map(card => ({
         front: card.getFront(),
         back: card.getBack(),
+        imageFront: card.getImageFront(),
+        imageBack: card.getImageBack()
       }))
+
 
       const user = auth.currentUser
 
@@ -119,6 +143,12 @@ export default function CreateCard() {
                 <p>{cardIndex + 1}</p>
                 <h1>front</h1>
                 <input placeholder="" type="text" value={cards[cardIndex].getFront()} onChange={(e) => updateFront(e.target.value)}/>
+                <ImageUploader userId={auth.currentUser?.uid || ""} deckId={title} 
+                  onUploadComplete={(url) => {
+                    const updatedCards = [...cards] 
+                    updatedCards[cardIndex].setImageFront(url)
+                    setCards(updatedCards)
+                  }}/>
               </div>
             </div>
           ) : (
@@ -128,6 +158,12 @@ export default function CreateCard() {
                   <p>{cardIndex + 1}</p>
                   <h1>back</h1>
                   <input placeholder="" type="text" value={cards[cardIndex].getBack()} onChange={(e) => updateBack(e.target.value)}/>
+                  <ImageUploader userId={auth.currentUser?.uid || ""} deckId={title} 
+                    onUploadComplete={(url) => {
+                      const updatedCards = [...cards] 
+                      updatedCards[cardIndex].setImageBack(url)
+                      setCards(updatedCards)
+                    }}/>
                 </div>
               </div>
             </div>

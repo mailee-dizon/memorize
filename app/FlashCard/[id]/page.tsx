@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import Image from 'next/image';
 import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
@@ -11,6 +12,8 @@ export const dynamic = "force-dynamic";
 interface FlashCard {
     front: string;
     back: string;
+    imageFront: string;
+    imageBack: string;
 }
 
 export default function Deck() {
@@ -76,10 +79,20 @@ export default function Deck() {
                                 <div className="flip-card-front">
                                     <h1>Question</h1>
                                     <p>{cards[cardsIndex].front}</p>
+                                    {(cards[cardsIndex].imageFront) ? (
+                                        <Image src={cards[cardsIndex].imageFront} alt="image" height="100" width="100"/>
+                                    ) : (
+                                        <div></div>
+                                    )}
                                 </div>
                                 <div className="flip-card-back">
                                     <h1>Answer</h1>
                                     <p>{cards[cardsIndex].back}</p>
+                                    {(cards[cardsIndex].imageBack) ? (
+                                        <Image src={cards[cardsIndex].imageBack} alt="image" height="100" width-="100"/>
+                                    ) : (
+                                        <div></div>
+                                    )}
                                 </div>
                             </div>
                         </div>
