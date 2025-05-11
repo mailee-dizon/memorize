@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth, db } from '@/app/firebase/config';
 import { doc, collection, addDoc } from 'firebase/firestore';
@@ -59,7 +59,25 @@ export default function CreateCard() {
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(true);
   const [title, setTitle] = useState("")
+  const [user, setUser] = useState("");
+  const [loading, setLoading] = useState(true)
   const router = useRouter()
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser.uid)
+        setLoading(false)
+      } else {
+        router.push("../Pages/LoginPage");
+      }
+    })
+    return () => unsubscribe()
+  }, [router])
+
+  if (loading) return (<></>)
+
+  if (!user) {router.push("../Pages/LoginPage")}
 
   const updateFront = (input: string) => {
     const updatedCards = [...cards]
@@ -133,6 +151,7 @@ export default function CreateCard() {
 
   return (
     <div>
+      
       <h1>Create Cards</h1>
       <label>Deck Name: </label>
       <input placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)}/>
@@ -158,7 +177,7 @@ export default function CreateCard() {
                   <p>{cardIndex + 1}</p>
                   <h1>back</h1>
                   <input placeholder="" type="text" value={cards[cardIndex].getBack()} onChange={(e) => updateBack(e.target.value)}/>
-                  <ImageUploader userId={auth.currentUser?.uid || ""} deckId={title} 
+                  <ImageUploader userId={user} deckId={title} 
                     onUploadComplete={(url) => {
                       const updatedCards = [...cards] 
                       updatedCards[cardIndex].setImageBack(url)
