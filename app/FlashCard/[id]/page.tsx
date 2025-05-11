@@ -89,7 +89,7 @@ export default function Deck() {
                                     <h1>Answer</h1>
                                     <p>{cards[cardsIndex].back}</p>
                                     {(cards[cardsIndex].imageBack) ? (
-                                        <Image src={cards[cardsIndex].imageBack} alt="image" height="100" width-="100"/>
+                                        <Image src={cards[cardsIndex].imageBack} alt="image" height="100" width="100"/>
                                     ) : (
                                         <div></div>
                                     )}

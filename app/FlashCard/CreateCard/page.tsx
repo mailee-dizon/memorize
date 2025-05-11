@@ -149,6 +149,8 @@ export default function CreateCard() {
     }
   }
 
+  console.log("user: ", auth.currentUser?.uid)
+
   return (
     <div>
       
