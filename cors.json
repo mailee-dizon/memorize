@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["https://memorize-356140602370.us-central1.run.app"],
+      "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "responseHeader": ["Content-Type", "Authorization"],
+      "maxAgeSeconds": 3600
+    }
+  ]

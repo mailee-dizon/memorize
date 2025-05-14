@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "flipcards-448722",
+    "staging": "flipcards-448722"
+  },
+  "targets": {},
+  "etags": {}
+}
