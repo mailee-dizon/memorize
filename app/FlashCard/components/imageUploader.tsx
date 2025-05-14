@@ -27,12 +27,13 @@ export default function ImageUploader( {userId, deckId, onUploadComplete} : Imag
             onUploadComplete(url)
             setImageUrl(url)
             setImageUploaded(true)
-            console.log("image uploaded")
+            
         } catch (error) {
             console.log(error)
         }
     }
 
+    console.log("Image Url:", imageUrl)
     return (
         <div>
             <input type="file" onChange={handleImageChange}/>
