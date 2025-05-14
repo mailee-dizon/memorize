@@ -18,7 +18,7 @@ console.log("Firebase API Key: ", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 
 const auth = getAuth(app);
-const storage = getStorage(app);
+const storage = getStorage(app, "gs://flipcards-448722.firebasestorage.app");
 const db = getFirestore(app);
 
 export {app, auth, db, storage}
