@@ -77,7 +77,6 @@ export default function Deck() {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <h1>Question</h1>
                                     <p>{cards[cardsIndex].front}</p>
                                     {(cards[cardsIndex].imageFront) ? (
                                         <Image src={cards[cardsIndex].imageFront} alt="image" height={100} width={100} unoptimized/>
@@ -86,10 +85,9 @@ export default function Deck() {
                                     )}
                                 </div>
                                 <div className="flip-card-back">
-                                    <h1>Answer</h1>
                                     <p>{cards[cardsIndex].back}</p>
                                     {(cards[cardsIndex].imageBack) ? (
-                                        <Image src={cards[cardsIndex].imageBack} alt="image" height="100" width="100"/>
+                                        <Image src={cards[cardsIndex].imageBack} alt="image" height="100" width="100" unoptimized/>
                                     ) : (
                                         <div></div>
                                     )}
