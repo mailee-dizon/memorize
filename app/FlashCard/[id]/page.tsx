@@ -78,10 +78,16 @@ export default function Deck() {
                         <div className="flip-card">
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
-                                    <p>{cards[cardsIndex].front}</p>
-                                    {(cards[cardsIndex].imageFront) ? (
-                                        <Image src={cards[cardsIndex].imageFront} alt="image" height={100} width={100} unoptimized/>
-                                    ) : (
+                                    {(cards[cardsIndex].imageFront) && cards[cardsIndex].front === "" ? (
+                                        <div className="imageOnly">
+                                            <Image src={cards[cardsIndex].imageFront} alt="image" layout="fill" objectFit="contain" unoptimized/>
+                                        </div>
+                                    ) : cards[cardsIndex].imageFront ? (
+                                        <div className="wordsAndImage">
+                                            <p>{cards[cardsIndex].front}</p>
+                                            <Image src={cards[cardsIndex].imageFront} alt="image" width={200} height={200} objectFit="contain" unoptimized/>
+                                        </div>
+                                    ): (
                                         <div></div>
                                     )}
                                 </div>
