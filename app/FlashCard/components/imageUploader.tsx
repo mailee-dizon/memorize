@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 import uploadImage from "../utils/uploadImage";
 
 interface ImageUploaderProps {
