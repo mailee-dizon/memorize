@@ -4,14 +4,13 @@ import Image from "next/image";
 
 interface ImageUploaderProps {
     userId: string,
-    deckId: string
+    deckId: string,
+    value: string,
     onUploadComplete: (url: string) => void
 }
 
-export default function ImageUploader( {userId, deckId, onUploadComplete} : ImageUploaderProps ) {
+export default function ImageUploader( {userId, deckId, value, onUploadComplete} : ImageUploaderProps ) {
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
-    const [imageUploaded, setImageUploaded] = useState(false)
-    const [imageUrl, setImageUrl] = useState("")
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
@@ -25,23 +24,21 @@ export default function ImageUploader( {userId, deckId, onUploadComplete} : Imag
             const url = await uploadImage(selectedImage, userId, deckId)
             console.log("Deck Id: ", deckId)
             onUploadComplete(url)
-            setImageUrl(url)
-            setImageUploaded(true)
             
         } catch (error) {
             console.log(error)
         }
     }
 
-    console.log("Image Url:", imageUrl)
     return (
         <div>
-            <input type="file" onChange={handleImageChange}/>
-            <button onClick={handleUpload}>Upload</button>
-            {imageUploaded ? (
-                <Image src={imageUrl} width={40} height={40} alt="image" unoptimized/>
+            {value ? (
+                <Image src={value} width={40} height={40} alt="image" unoptimized/>
             ) : (
-                <div></div>
+                <div>
+                    <input type="file" onChange={handleImageChange}/>
+                    <button onClick={handleUpload}>Upload</button>
+                </div>
             )}
         </div>
     )
