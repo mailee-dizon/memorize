@@ -1,5 +1,6 @@
 import { useState } from "react";
 import uploadImage from "../utils/uploadImage";
+import Image from "next/image";
 
 interface ImageUploaderProps {
     userId: string,
@@ -38,7 +39,7 @@ export default function ImageUploader( {userId, deckId, onUploadComplete} : Imag
             <input type="file" onChange={handleImageChange}/>
             <button onClick={handleUpload}>Upload</button>
             {imageUploaded ? (
-                <img src={imageUrl} width="20" height="20" alt="image"/>
+                <Image src={imageUrl} width="20" height="20" alt="image"/>
             ) : (
                 <div></div>
             )}
