@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 interface FlashCard {
     front: string;
     back: string;
+    notes: string;
     imageFront: string;
     imageBack: string;
 }
@@ -86,8 +87,9 @@ export default function Deck() {
                                 </div>
                                 <div className="flip-card-back">
                                     <p>{cards[cardsIndex].back}</p>
+                                    <p>{cards[cardsIndex].notes}</p>
                                     {(cards[cardsIndex].imageBack) ? (
-                                        <Image src={cards[cardsIndex].imageBack} alt="image" height="100" width="100" unoptimized/>
+                                        <Image src={cards[cardsIndex].imageBack} alt="image" height={100} width={100} unoptimized/>
                                     ) : (
                                         <div></div>
                                     )}
