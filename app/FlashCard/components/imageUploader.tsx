@@ -39,7 +39,7 @@ export default function ImageUploader( {userId, deckId, onUploadComplete} : Imag
             <input type="file" onChange={handleImageChange}/>
             <button onClick={handleUpload}>Upload</button>
             {imageUploaded ? (
-                <Image src={imageUrl} width="20" height="20" alt="image"/>
+                <Image src={imageUrl} width={40} height={40} alt="image"/>
             ) : (
                 <div></div>
             )}
