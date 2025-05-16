@@ -5,8 +5,15 @@ import { collectionGroup, query, where, getDocs } from "firebase/firestore"
 import { db, auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 
+interface Deck {
+  id: string;
+  title: string;
+  isPublic: boolean;
+  [key: string]: any;
+}
+
 export default function PublicPage() {
-    const [decks, setDecks] = useState<any[]>([])
+    const [decks, setDecks] = useState<Deck[]>([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -17,10 +24,15 @@ export default function PublicPage() {
             );
 
             const snapshot = await getDocs(q)
-            const publicDecks = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }))
+            const publicDecks = snapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    title: data.title || "Untitled Deck",
+                    isPublic: data.isPublic ?? false,
+                    ...data
+                }
+            })
 
             setDecks(publicDecks)
         }
@@ -49,7 +61,6 @@ export default function PublicPage() {
                 <p>No Decks</p>
             </div>
         )}
-        <button onClick={() => router.push("../FlashCard/CreateCard")}>New Set</button> <br/>
         <button onClick={onLogOut}>Log Out</button>
       </div>
     )
