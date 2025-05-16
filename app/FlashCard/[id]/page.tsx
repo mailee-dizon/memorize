@@ -58,6 +58,7 @@ export default function Deck() {
         await updateDoc(deckRef, {
             isPublic: true
         })
+        console.log("Public")
     }
 
 

@@ -5,10 +5,19 @@ import { collectionGroup, query, where, getDocs } from "firebase/firestore"
 import { db, auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 
+interface FlashCard {
+    front: string;
+    back: string;
+    notes: string;
+    imageFront: string;
+    imageBack: string;
+}
+
 interface Deck {
   id: string;
   title: string;
   isPublic: boolean;
+  cards?: FlashCard[]
 }
 
 export default function PublicPage() {
@@ -18,7 +27,7 @@ export default function PublicPage() {
     useEffect(() => {
         const fetchPublicDecks = async () => {
             const q = query(
-                collectionGroup(db, "decks"),
+                collectionGroup(db, "flashcards"),
                 where("isPublic", "==", true)
             );
 
@@ -39,8 +48,7 @@ export default function PublicPage() {
         fetchPublicDecks()
     }, [])
 
-    const onLogOut = () => {
-        auth.signOut()
+    const backHome = () => {
         router.push("../")
     }
 
@@ -60,7 +68,7 @@ export default function PublicPage() {
                 <p>No Decks</p>
             </div>
         )}
-        <button onClick={onLogOut}>Log Out</button>
+        <button onClick={backHome}>Back Home</button>
       </div>
     )
 }
