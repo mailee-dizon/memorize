@@ -10,6 +10,7 @@ export default function Home() {
       <h1>Welcome to Memorize!</h1>
       <button onClick={() => router.push("Pages/LoginPage")}>Log In</button>
       <button onClick={() => router.push("Pages/SignupPage")}>Sign Up</button>
+      <button onClick={() => router.push("Pages/PublicPage")}>Public Decks</button>
     </div>
   );
 }

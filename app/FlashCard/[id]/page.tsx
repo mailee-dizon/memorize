@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image';
 import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase/config';
 import { useRouter } from 'next/navigation';
 
@@ -51,6 +51,14 @@ export default function Deck() {
 
         return () => unsubscribe();
     }, [id]);
+
+    async function makeDeckPublic(deckId: string, userId: string) {
+        const deckRef = doc(db, "users", userId, "flashcards", deckId);
+
+        await updateDoc(deckRef, {
+            isPublic: true
+        })
+    }
 
 
 
@@ -111,6 +119,12 @@ export default function Deck() {
                         <button type="button" onClick={nextCard} className="ib2">Next Card</button>
                     </div>
                 </div>  
+                    <button onClick={async () => {
+                        const user=auth.currentUser
+                        if (user) {
+                            await makeDeckPublic(id as string, user.uid);
+                        }
+                    }}>Make Set Public</button>
                     <button onClick={() => router.push("../Pages/HomePage")}>Back Home</button>
                     <button onClick={() => router.push("../..")}>Logout</button>
             </div>
