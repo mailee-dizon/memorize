@@ -9,7 +9,6 @@ interface Deck {
   id: string;
   title: string;
   isPublic: boolean;
-  [key: string]: any;
 }
 
 export default function PublicPage() {
