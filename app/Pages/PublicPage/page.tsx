@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { collectionGroup, query, where, getDocs } from "firebase/firestore"
-import { db, auth } from "@/app/firebase/config";
+import { db } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
 
 interface FlashCard {
