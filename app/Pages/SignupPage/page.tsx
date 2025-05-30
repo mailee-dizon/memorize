@@ -30,14 +30,16 @@ export default function SignupPage() {
     }
 
     return (
-        <div>
-            <h1>Sign Up Here</h1>
-            <label>Email</label> <br/>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder = "Email"/> <br/>
-            <label>Password</label> <br/>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder = "Password"/> <br/>
-            <button onClick={handleSignup}>Sign up</button> <br/>
-            <button onClick={() => {router.push("LoginPage")}}>Have an Account? Log in here</button>
+        <div style={{margin: "auto", width: "50%", border: "2px solid black"}}>
+            <h1 style={{textAlign: "center", fontFamily: "monospace"}}>Sign Up Here</h1>
+            <div style={{padding: "5px"}}>
+                <label style={{margin: "5px", fontFamily: "monospace", fontSize: "large"}}>Email</label> <br/>
+                <input className="signInput" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder = "Email"/> <br/>
+                <label style={{margin: "5px", fontFamily: "monospace", fontSize: "large"}}>Password</label> <br/>
+                <input className="signInput" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder = "Password"/> <br/>
+                <button style={{backgroundColor: "darkolivegreen", color: "white", padding: "10px", display: "block", margin: "auto"}} onClick={handleSignup}>Sign up</button> <br/>
+                <button style={{backgroundColor: "darkolivegreen", color: "white", padding: "10px", display: "block", margin: "auto"}} onClick={() => {router.push("LoginPage")}}>Have an Account? Log in here</button>
+            </div>
         </div>
     );
 }

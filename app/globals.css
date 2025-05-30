@@ -1,15 +1,16 @@
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
-background-color: transparent;
-width: 75%;
-aspect-ratio: 3/2;
-border: 1px solid #f1f1f1;
-perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  background-color: transparent;
+  width: 75%;
+  aspect-ratio: 3/2;
+  padding: 10px;
+  margin: auto;
 }
 
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
+
 position: relative;
 width: 100%;
 height: 100%;
@@ -46,15 +47,16 @@ backface-visibility: hidden;
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-background-color: #bbb;
+background-color:moccasin;
 color: black;
+color: darkolivegreen;
 }
 
 
 /* Style the back side */
 .flip-card-back {
-background-color: dodgerblue;
-color: white;
+background-color: moccasin;
+color: darkolivegreen;
 transform: rotateY(180deg);
 }
 
@@ -97,4 +99,23 @@ margin: 5px;
 
 .wordsAndImage p {
   margin-bottom: 10px;
+}
+
+.signInput {
+  border: none;
+  border-bottom: 2px solid black;
+  margin: 5px;
+  width: 95%;
+  font-size: medium;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+  border-radius: 5px; 
+  background-color: darkolivegreen; 
+  color: white; 
+  padding: 10px; 
+  display: block;
+  margin: auto;
+  border: none;
 }

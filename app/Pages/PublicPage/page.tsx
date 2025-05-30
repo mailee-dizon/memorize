@@ -17,6 +17,7 @@ interface Deck {
   id: string;
   title: string;
   isPublic: boolean;
+  userId: string;
   cards?: FlashCard[]
 }
 
@@ -38,6 +39,7 @@ export default function PublicPage() {
                     id: doc.id,
                     title: data.title || "Untitled Deck",
                     isPublic: data.isPublic ?? false,
+                    userId: data.userId,
                     ...data
                 }
             })
@@ -59,7 +61,7 @@ export default function PublicPage() {
           decks.map((deck) => {
             return(
                 <div key={deck.id}>
-                    <button onClick={() => router.push(`../FlashCard/${deck.id}`)}>{deck.title}</button> <br/>
+                    <button onClick={() => router.push(`/FlashCard/${deck.id}?user=${deck.userId}`)}>{deck.title}</button> <br/>
                 </div>
             );
           })

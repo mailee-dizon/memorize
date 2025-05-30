@@ -7,10 +7,10 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Welcome to Memorize!</h1>
-      <button onClick={() => router.push("Pages/LoginPage")}>Log In</button>
-      <button onClick={() => router.push("Pages/SignupPage")}>Sign Up</button>
-      <button onClick={() => router.push("Pages/PublicPage")}>Public Decks</button>
+      <h1 style={{textAlign: "center"}}>Welcome to Memorize!</h1>
+      <h2 style={{textAlign: "center"}}>Create. Study. Practice</h2>
+      <h3 style={{textAlign: "center"}}>Sign Up and Start Studying Here</h3>
+      <button style={{display: "block", margin: "auto"}} onClick={() => {router.push("./Pages/SignupPage")}}>Sign Up!</button>
     </div>
   );
 }

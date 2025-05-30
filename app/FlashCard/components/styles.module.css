@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+}
+.navbar {
+    background-color: darkolivegreen;
+    color: white;
+    margin: 0;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.homebtn {
+    display: inline;
+    padding: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: larger;
+    float: left;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.rightbtn {
+    display: inline;
+    padding: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: larger;
+    float: right;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.homebtn:hover, .rightbtn:hover {
+    background-color: olive;
+}
+
+
