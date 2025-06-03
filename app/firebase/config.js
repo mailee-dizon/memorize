@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { browserSessionPersistence, getAuth, onAuthStateChanged, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
+import { browserSessionPersistence, getAuth, onAuthStateChanged, setPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -25,7 +25,7 @@ const db = getFirestore(app);
 
 setPersistence(auth, browserSessionPersistence) 
   .then(() => {
-    
+  
   })
   .catch((error) => {
     console.log(error)

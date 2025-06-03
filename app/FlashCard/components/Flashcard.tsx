@@ -9,11 +9,12 @@ interface FlashcardProps {
     imageBack: string;
 }
 
-export default function Flashcard ( {front, back, notes, imageFront, imageBack} : FlashcardProps )  {
+interface HomeFlashcardProps {
+    front: string;
+    back: string;    
+}
 
-
-console.log("Front:", front);
-
+export function Flashcard ( {front, back, notes, imageFront, imageBack} : FlashcardProps )  {
     return (
         <div className="flip-card">
             <div className="flip-card-inner">
@@ -46,3 +47,20 @@ console.log("Front:", front);
         </div>
     )
 }
+
+export function HomeFlashcard ( {front, back} : HomeFlashcardProps )  {
+    return (
+        <div className="flip-card">
+            <div className="flip-card-inner">
+                <div className="flip-card-front">
+                    <h1>{front}</h1>
+                </div>
+                <div className="flip-card-back">
+                    <h1>{back}</h1>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+

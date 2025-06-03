@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase/config';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Flashcard from '../components/Flashcard';
+import { Flashcard } from '../components/Flashcard';
 
 export const dynamic = "force-dynamic";
 
