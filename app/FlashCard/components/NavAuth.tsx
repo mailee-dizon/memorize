@@ -28,15 +28,17 @@ const NavAuth = () => {
         setAuthUser(null);
     }
 
+    console.log("User: ", authUser);
+
   return (
     <>
       { !authUser ? (
         <>
-            <Link className={styles.rightbtn} href="../Pages/LoginPage">Log In</Link>
+          <Link className={styles.rightbtn} href="../Pages/LoginPage">Log In</Link>
         </>
       ) : (
         <>
-            <Link className={styles.rightbtn} href="/" onClick={userSignOut}>Sign Out</Link>
+          <Link className={styles.rightbtn} href="/" onClick={userSignOut}>Sign Out</Link>
         </>
       )}
     </>

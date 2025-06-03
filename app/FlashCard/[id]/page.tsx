@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
-import Image from 'next/image';
 import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase/config';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Flashcard from '../components/Flashcard';
 
 export const dynamic = "force-dynamic";
 
@@ -93,17 +93,8 @@ export default function Deck() {
         }
     }
 
-    return (
-        <div>
-            <div>
-                <div>
-
-                    <h2 style={{textAlign: "center"}}>{title}</h2>
-                    
-                    {cards.length > 0 ? (
-                        <div style={{display: "flex"}}>
-                            <button style={{backgroundColor: "darkolivegreen", margin: "auto", marginLeft: "5px", border: "none", color: "white", fontSize: "30px", height: "50px", width: "50px", flexShrink: "30", textAlign: "center"}} type="button" onClick={previousCard} className="ib1">&#8592;</button>
-                            <div className="flip-card">
+    /*
+    <div className="flip-card">
                                 <div className="flip-card-inner">
                                     <div className="flip-card-front">
                                         {(cards[cardsIndex].imageFront) && cards[cardsIndex].front === "" ? (
@@ -115,8 +106,10 @@ export default function Deck() {
                                                 <p>{cards[cardsIndex].front}</p>
                                                 <Image src={cards[cardsIndex].imageFront} alt="image" width={200} height={200} objectFit="contain" unoptimized/>
                                             </div>
-                                        ): (
-                                            <div></div>
+                                        ) : (
+                                            <div>
+                                                <p>{cards[cardsIndex].front}</p>
+                                            </div>
                                         )}
                                     </div>
                                     <div className="flip-card-back">
@@ -131,6 +124,25 @@ export default function Deck() {
                                     </div>
                                 </div>
                             </div>
+    */
+
+    return (
+        <div>
+            <div>
+                <div>
+
+                    <h2 style={{textAlign: "center"}}>{title}</h2>
+                    
+                    {cards.length > 0 ? (
+                        <div style={{display: "flex"}}>
+                            <button style={{backgroundColor: "darkolivegreen", margin: "auto", marginLeft: "5px", border: "none", color: "white", fontSize: "30px", height: "50px", width: "50px", flexShrink: "30", textAlign: "center"}} type="button" onClick={previousCard} className="ib1">&#8592;</button>
+                            <Flashcard 
+                                front={cards[cardsIndex].front} 
+                                back={cards[cardsIndex].back} 
+                                notes={cards[cardsIndex].notes} 
+                                imageFront={cards[cardsIndex].imageFront} 
+                                imageBack={cards[cardsIndex].imageBack}
+                            />
                             <button style={{backgroundColor: "darkolivegreen", margin: "auto", marginRight: "5px", border: "none", color: "white", fontSize: "30px", height: "50px", flexShrink: "30", textAlign: "center"}} type="button" onClick={nextCard} className="ib2">&#8594;</button>
                         </div>
                     ): (
