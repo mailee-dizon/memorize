@@ -1,7 +1,0 @@
-function previousCard () {
-    
-}
-
-function nextCard () {
-
-}
